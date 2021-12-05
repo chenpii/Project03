@@ -141,14 +141,19 @@ public class TeamService {
 		}
 
 		// 后一个元素覆盖前一个元素，实现删除操作
-		for (int j = i; j < total; j++) {
-			team[j - 1] = team[j];
+		for (int j = i; j < total - 1; j++) {
+			team[j] = team[j + 1];
+			int memberid2 = team[j].getMemberid();
+			memberid2--;
+			team[j].setMemberid(memberid2);
 		}
 
 		team[total - 1] = null;
 		total--;
+		counter--;
 
 		if (p != null) {
+			p.setMemberid(0);
 			if (p instanceof Architect) {
 				numOfArchitect--;
 			} else if (p instanceof Designer) {
