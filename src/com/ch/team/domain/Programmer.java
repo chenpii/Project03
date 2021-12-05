@@ -46,4 +46,9 @@ public class Programmer extends Employee {
 		this.equipment = equipment;
 	}
 
+	@Override
+	public String toString() {
+		return super.getDetails() + "\t≥Ã–Ú‘±\t" + status + "\t\t\t" + equipment.getDescription();
+	}
+
 }
