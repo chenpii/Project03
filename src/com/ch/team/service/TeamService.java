@@ -119,7 +119,44 @@ public class TeamService {
 		return false;
 	}
 
-	public void removeMember(int memberId) {
+	/**
+	 * 
+	 * @Descrition 删除团队成员
+	 * @param memberId
+	 * @throws TeamException
+	 */
+	public void removeMember(int memberId) throws TeamException {
+		int i = 0;
+		Programmer p = null;
+		for (; i < total; i++) {
+			if (team[i].getMemberid() == memberId) {
+				team[i].setStatus(Status.FREE);
+				p = team[i];
+				break;
+			}
+		}
+		// 没找到，退出循环后i是toal
+		if (i == total) {
+			throw new TeamException("没找到该成员");
+		}
+
+		// 后一个元素覆盖前一个元素，实现删除操作
+		for (int j = i; j < total; j++) {
+			team[j - 1] = team[j];
+		}
+
+		team[total - 1] = null;
+		total--;
+
+		if (p != null) {
+			if (p instanceof Architect) {
+				numOfArchitect--;
+			} else if (p instanceof Designer) {
+				numOfDesigner--;
+			} else if (p instanceof Programmer) {
+				numOfProgrammer--;
+			}
+		}
 
 	}
 }
