@@ -50,28 +50,26 @@ public class NameListService {
 			int stock;
 
 			switch (type) {
-			case EMPLOYEE: {
+			case EMPLOYEE:
 				employees[i] = new Employee(id, name, age, salary);
 				break;
-			}
-			case PROGRAMMER: {
+			case PROGRAMMER:
 				equipment = createEquipment(i);
 				employees[i] = new Programmer(id, name, age, salary, equipment);
 				break;
-			}
-			case DESIGNER: {
+			case DESIGNER:
 				equipment = createEquipment(i);
 				bonus = Double.parseDouble(EMPLOYEES[i][5]);
 				employees[i] = new Designer(id, name, age, salary, equipment, bonus);
 				break;
-			}
-			case ARCHITECT: {
+			case ARCHITECT:
 				equipment = createEquipment(i);
 				bonus = Double.parseDouble(EMPLOYEES[i][5]);
 				stock = Integer.parseInt(EMPLOYEES[i][6]);
 				employees[i] = new Architect(id, name, age, salary, equipment, bonus, stock);
 				break;
-			}
+			default:
+				break;
 			}
 		}
 	}
@@ -84,18 +82,15 @@ public class NameListService {
 	private Equipment createEquipment(int index) {
 		int type = Integer.parseInt(EQUIPMENTS[index][0]);
 		switch (type) {
-		case PC: {// 21
+		case PC:// 21
 			return new PC(EQUIPMENTS[index][1], EQUIPMENTS[index][2]);
-		}
-		case NOTEBOOK: {// 22
+		case NOTEBOOK:// 22
 			return new NoteBook(EQUIPMENTS[index][1], Double.parseDouble(EQUIPMENTS[index][2]));
-
-		}
-		case PRINTER: {// 23
+		case PRINTER:// 23
 			return new Printer(EQUIPMENTS[index][1], EQUIPMENTS[index][2]);
+		default:
+			return null;
 		}
-		}
-		return null;
 	}
 
 	/**
