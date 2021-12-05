@@ -10,6 +10,8 @@ import static com.ch.team.service.Data.PC;
 import static com.ch.team.service.Data.PRINTER;
 import static com.ch.team.service.Data.PROGRAMMER;
 
+import com.ch.team.domain.Architect;
+import com.ch.team.domain.Designer;
 import com.ch.team.domain.Employee;
 import com.ch.team.domain.Equipment;
 import com.ch.team.domain.NoteBook;
@@ -43,22 +45,31 @@ public class NameListService {
 			int age = Integer.parseInt(EMPLOYEES[i][3]);
 			double salary = Double.parseDouble(EMPLOYEES[i][4]);
 
+			Equipment equipment;
+			double bonus;
+			int stock;
+
 			switch (type) {
 			case EMPLOYEE: {
 				employees[i] = new Employee(id, name, age, salary);
 				break;
 			}
 			case PROGRAMMER: {
-				Equipment equipment = createEquipment(i);
+				equipment = createEquipment(i);
 				employees[i] = new Programmer(id, name, age, salary, equipment);
 				break;
 			}
 			case DESIGNER: {
-
+				equipment = createEquipment(i);
+				bonus = Double.parseDouble(EMPLOYEES[i][5]);
+				employees[i] = new Designer(id, name, age, salary, equipment, bonus);
 				break;
 			}
 			case ARCHITECT: {
-
+				equipment = createEquipment(i);
+				bonus = Double.parseDouble(EMPLOYEES[i][5]);
+				stock = Integer.parseInt(EMPLOYEES[i][6]);
+				employees[i] = new Architect(id, name, age, salary, equipment, bonus, stock);
 				break;
 			}
 			}
@@ -85,14 +96,31 @@ public class NameListService {
 		}
 		}
 		return null;
-
 	}
 
+	/**
+	 * 
+	 * @Descrition 获取当前所有员工
+	 * @return 包含所有员工对象的数组
+	 */
 	public Employee[] getAllEmployees() {
-		return null;
+		return employees;
 	}
 
-	public Employee getEmploy(int id) {
-		return null;
+	/**
+	 * 
+	 * @Descrition 获取指定ID的员工对象
+	 * @param id 指定员工ID
+	 * @return 指定员工对象
+	 * @throws TeamException 找不到指定的员工
+	 */
+	public Employee getEmploy(int id) throws TeamException {
+		for (int i = 0; i < employees.length; i++) {
+			if (employees[i].getId() == id) {
+				return employees[i];
+			}
+		}
+
+		throw new TeamException("找不到指定的员工");
 	}
 }
