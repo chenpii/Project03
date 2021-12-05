@@ -10,7 +10,7 @@ import com.ch.team.service.Status;
  */
 public class Programmer extends Employee {
 	private int memberid;// 在开发团队中的ID
-	private Status status;
+	private Status status = Status.FREE;
 	private Equipment equipment;
 
 	public Programmer() {
